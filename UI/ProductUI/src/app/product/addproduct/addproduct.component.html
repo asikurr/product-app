@@ -3,26 +3,26 @@
         <div class="row mb-1">
           <label for="name" class="col-sm-2 col-form-label">Name</label>
           <div class="col-sm-6">
-            <input type="text" name="name" class="form-control" [(ngModel)]="productModel.name">
+            <input type="text" required name="name" class="form-control" [(ngModel)]="productModel.name">
           </div>
         </div>
         <div class="row mb-1">
             <label for="description" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-6">
-              <input type="text"  name="description" class="form-control" [(ngModel)]="productModel.description">
+              <input type="text" required name="description" class="form-control" [(ngModel)]="productModel.description">
             </div>
           </div>
           <div class="row mb-1">
             <label for="price" class="col-sm-2 col-form-label">Price</label>
             <div class="col-sm-6">
-              <input type="number" name="price" class="form-control" [(ngModel)]="productModel.price">
+              <input type="number" required name="price" class="form-control" [(ngModel)]="productModel.price">
             </div>
           </div>
 
           <div class="row mb-1">
             <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
             <div class="col-sm-6">
-              <input type="number" name="quantity" class="form-control" [(ngModel)]="productModel.quantity">
+              <input type="number" required name="quantity" class="form-control" [(ngModel)]="productModel.quantity">
             </div>
           </div>
 
