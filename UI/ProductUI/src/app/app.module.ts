@@ -8,13 +8,15 @@ import { AddproductComponent } from './product/addproduct/addproduct.component';
 import { ProductlistComponent } from './product/productlist/productlist.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UpdateproductComponent } from './product/updateproduct/updateproduct.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopmenuComponent,
     AddproductComponent,
-    ProductlistComponent
+    ProductlistComponent,
+    UpdateproductComponent,
   ],
   imports: [
     BrowserModule,

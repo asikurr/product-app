@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { AddproductModel } from '../models/add-product.model';
 import { ProductService } from '../service/product.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addproduct',
@@ -12,7 +13,10 @@ export class AddproductComponent implements OnDestroy {
 
   productModel : AddproductModel;
   private productSubscription? : Subscription;
-  constructor(private productService : ProductService){
+  
+  constructor(private productService : ProductService,
+    private router : Router
+  ){
     this.productModel = {
       name : "samsung",
       description : 'galaxy s24 ultra',
@@ -26,7 +30,7 @@ export class AddproductComponent implements OnDestroy {
     this.productSubscription = this.productService.addProductService(this.productModel)
    .subscribe({
     next : (response) =>{
-      console.log("this is success." + response);
+      this.router.navigateByUrl('admin/products');
     }
    })
   }
