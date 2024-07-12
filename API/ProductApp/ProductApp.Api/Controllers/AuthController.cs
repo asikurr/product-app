@@ -27,7 +27,7 @@ namespace ProductApp.Api.Controllers
             var user = await _userManager.FindByEmailAsync(req.Email);
             if (user is not null)
             {
-               var passMath = await _userManager.CheckPasswordAsync(user, req.Password);
+                var passMath = await _userManager.CheckPasswordAsync(user, req.Password);
                 if (passMath)
                 {
                     var getRoles = await _userManager.GetRolesAsync(user);
@@ -39,9 +39,7 @@ namespace ProductApp.Api.Controllers
                         Token = jwtToken,
                         Roles = getRoles.ToList()
                     };
-
                     return Ok(response);
-
                 }
             }
             else
@@ -62,7 +60,7 @@ namespace ProductApp.Api.Controllers
                 Email = request.Email.Trim()
             };
 
-           var result = await _userManager.CreateAsync(user, request.Password);
+            var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
                 result = await _userManager.AddToRoleAsync(user, "Reader");
@@ -85,7 +83,7 @@ namespace ProductApp.Api.Controllers
                 {
                     foreach (var item in result.Errors)
                     {
-                        ModelState.AddModelError("",item.Description);
+                        ModelState.AddModelError("", item.Description);
                     }
                 }
             }

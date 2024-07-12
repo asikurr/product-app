@@ -14,8 +14,6 @@ namespace ProductApp.Api.Repositories
         {
             _configuration = configuration;
         }
-
-
         public string CreateJwtToken(IdentityUser user, List<string> roles)
         {
             //created claims
@@ -29,11 +27,11 @@ namespace ProductApp.Api.Repositories
             var getKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credential = new SigningCredentials(getKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
-                 issuer : _configuration["Jwt:Issuer"],
-                 audience : _configuration["Jwt:Audience"],
-                 claims : claims,
-                 expires : DateTime.Now.AddMinutes(5),
-                 signingCredentials : credential
+                 issuer: _configuration["Jwt:Issuer"],
+                 audience: _configuration["Jwt:Audience"],
+                 claims: claims,
+                 expires: DateTime.Now.AddMinutes(5),
+                 signingCredentials: credential
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(token);

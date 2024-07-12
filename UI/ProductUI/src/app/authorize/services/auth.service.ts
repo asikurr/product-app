@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LoginRequestModel } from '../login-request.model';
 import { User } from '../user.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { User } from '../user.model';
 export class AuthService {
 
   $user = new BehaviorSubject<User | undefined>(undefined);
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private cookieService : CookieService) { }
 
   login(loginReq : LoginRequestModel) : Observable<LoginResponseModel> {
     return this.http.post<LoginResponseModel>(`${environment.apiBaseUrl}/api/auth/login`, {
@@ -27,7 +28,27 @@ export class AuthService {
     localStorage.setItem('user-roles', user.roles.join(','));
   }
 
+  getUser() : User | undefined {
+    const email = localStorage.getItem('user-email');
+    const roles = localStorage.getItem('user-roles');
+    if (email && roles) {
+      const user : User = {
+        email : email,
+        roles : roles.split(',')
+      }
+      return user;
+    }
+    return undefined;
+  }
+
   userInfo() : Observable<User | undefined>{
     return this.$user.asObservable();
   }
+
+  logout(){
+    localStorage.clear();
+    this.cookieService.delete('Authorization');
+    this.$user.next(undefined);
+  }
+
 }

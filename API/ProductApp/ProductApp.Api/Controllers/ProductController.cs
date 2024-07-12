@@ -17,7 +17,7 @@ namespace ProductApp.Api.Controllers
             _productRepository = productRepository;
         }
         [HttpPost]
-        [Authorize(Roles ="Writer")]
+        [Authorize(Roles ="Writer"), Authorize(Roles = "Reader")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto request)
         {
             var product = new Product()

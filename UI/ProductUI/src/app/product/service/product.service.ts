@@ -5,16 +5,21 @@ import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.model';
 import { environment } from '../../../environments/environment';
 import { UpdateproductRequest } from '../models/update-product.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private cookieService : CookieService) { }
 
   addProductService(model : AddproductModel) : Observable<void>{
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/Product`, model);
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/Product`, model, {
+      headers : {
+        'Authorization' : this.cookieService.get('Authorization')
+      }
+    });
   }
 
   getAllProducts() : Observable<Product[]>{
@@ -26,11 +31,19 @@ export class ProductService {
   }
 
   updateProductById(id :string, updateProduct : UpdateproductRequest) : Observable<Product>{
-    return this.http.put<Product>(`${environment.apiBaseUrl}/api/Product/${id}`,updateProduct);
+    return this.http.put<Product>(`${environment.apiBaseUrl}/api/Product/${id}`,updateProduct, {
+      headers : {
+        'Authorization' : this.cookieService.get('Authorization')
+      }
+    });
   }
 
   deleteProduct(id : string) : Observable<Product>{
-    return this.http.delete<Product>(`${environment.apiBaseUrl}/api/Product/${id}`);
+    return this.http.delete<Product>(`${environment.apiBaseUrl}/api/Product/${id}`,{
+      headers : {
+        'Authorization' : this.cookieService.get('Authorization')
+      }
+    });
   }
 
 }
